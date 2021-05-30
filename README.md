@@ -1,6 +1,6 @@
 <a href="https://user-images.githubusercontent.com/15273233/93658796-e2797000-fa92-11ea-8226-bf1e528251c5.png"><img width="100%" height="100%" src="https://user-images.githubusercontent.com/15273233/93658796-e2797000-fa92-11ea-8226-bf1e528251c5.png"></a>
 
-# Dynamic Module Federation
+# Dynamic Module Federation (Host App)
 
 An environment-agnostic, federated host that consumes remote applications dynamically.
 
@@ -38,7 +38,7 @@ Run dev environment:
 
 Navigate to local server:
 
-**[http://localhost:8000/](http://localhost:8000)**
+**[http://localhost:8000](http://localhost:8000)**
 
 ## Notes
 
