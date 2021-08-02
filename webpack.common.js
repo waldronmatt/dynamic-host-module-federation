@@ -6,12 +6,38 @@ const WebpackAssetsManifest = require('webpack-assets-manifest');
 const { ModuleFederationPlugin } = require('webpack').container;
 const DynamicContainerPathPlugin = require('dynamic-container-path-webpack-plugin');
 const setPublicPath = require('dynamic-container-path-webpack-plugin/set-path');
-const { dependencies } = require('./package.json');
 
 const chunks = require('./config/chunks.config.json');
 const mainEntry = chunks.entrypoints[0];
 
 const commonConfig = isProduction => {
+
+  // project-specific configurations are located here
+  const ModuleFederationConfiguration = () => {
+    const AutomaticVendorFederation = require("@module-federation/automatic-vendor-federation");
+    const packageJson = require('./package.json');
+    const exclude = ["express", "serverless-http"];
+
+    return new ModuleFederationPlugin({
+      // This should be our 'shared contract' between the host and the remotes.
+      shared: AutomaticVendorFederation({
+        exclude,
+        packageJson,
+        shareFrom: ["dependencies"],
+        jquery: {
+          /*
+            You can make shared modules "eager", which doesn't put the modules in a async chunk, 
+            but provides them synchronously. This allows to use these shared modules in the initial chunk. 
+            But be careful as all provided and fallback modules will always be downloaded. 
+            There it's wise to provide it only at one point of your app, e. g. the shell.
+            https://github.com/webpack/webpack/pull/10960
+          */
+          eager: true,
+        },
+      }),
+    });
+  };
+
   return {
     target: 'web',
     entry: {
@@ -25,6 +51,9 @@ const commonConfig = isProduction => {
       /* 
         disable webpack base config `runtimeChunck: single`
         https://github.com/webpack/webpack/issues/11691
+
+        This can be removed when #11843 is merged
+        https://github.com/webpack/webpack/pull/11843
       */
       runtimeChunk: false,
     },
@@ -39,31 +68,14 @@ const commonConfig = isProduction => {
       new WebpackAssetsManifest({}),
       new HtmlWebpackPlugin({
         filename: 'index.html',
-        title: 'Host',
-        description: 'Host App of Module Federation',
+        title: `${mainEntry}`,
+        description: `${mainEntry} of Module Federation`,
         template: 'src/index.html',
         /* 
-          here we strip out the entry point because we don't want it duplicated
-          when we call it again dynamically at runtime
+          here we strip out the entry point and the remote alias 'FormApp'
+          because we don't want it duplicated when we call it again dynamically at runtime
         */
         excludeChunks: [...chunks.entrypoints],
-      }),
-      new ModuleFederationPlugin({
-        // This should be our 'shared contract' between the host and the remotes.
-        shared: {
-          // use object spread to change single entries
-          ...dependencies,
-          jquery: {
-            /*
-              You can make shared modules "eager", which doesn't put the modules in a async chunk, 
-              but provides them synchronously. This allows to use these shared modules in the initial chunk. 
-              But be careful as all provided and fallback modules will always be downloaded. 
-              There it's wise to provide it only at one point of your app, e. g. the shell.
-              https://github.com/webpack/webpack/pull/10960
-            */
-            eager: true,
-          },
-        },
       }),
       new DynamicContainerPathPlugin({
         // provide the code to get `publicPath` at runtime
@@ -74,7 +86,7 @@ const commonConfig = isProduction => {
         */
         entry: mainEntry,
       }),
-    ],
+    ].concat(ModuleFederationConfiguration),
   };
 };
 

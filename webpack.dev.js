@@ -1,7 +1,6 @@
 const commonConfig = require('./webpack.common.js');
 const extendWebpackBaseConfig = require('@waldronmatt/webpack-config');
 const path = require('path');
-const chokidar = require('chokidar');
 const webpack = require('webpack');
 
 const developmentConfig = {
