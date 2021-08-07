@@ -2,7 +2,7 @@
 
 # Dynamic Module Federation (Host App)
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/d9255f2f-8d7d-4f47-a998-c8d2fe26d32e/deploy-status)](https://app.netlify.com/sites/waldronmatthew/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/d9255f2f-8d7d-4f47-a998-c8d2fe26d32e/deploy-status)](https://app.netlify.com/sites/dynamic-host-module-federation/deploys)
 
 An environment-agnostic, federated host that consumes remote applications dynamically. [Click here to see it live on Netlify](https://dynamic-host-module-federation.netlify.app/).
 
