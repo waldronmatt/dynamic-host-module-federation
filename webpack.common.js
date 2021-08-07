@@ -11,19 +11,18 @@ const chunks = require('./config/chunks.config.json');
 const mainEntry = chunks.entrypoints[0];
 
 const commonConfig = isProduction => {
-
   // project-specific configurations are located here
   const ModuleFederationConfiguration = () => {
-    const AutomaticVendorFederation = require("@module-federation/automatic-vendor-federation");
+    const AutomaticVendorFederation = require('@module-federation/automatic-vendor-federation');
     const packageJson = require('./package.json');
-    const exclude = ["express", "serverless-http"];
+    const exclude = ['express', 'serverless-http'];
 
     return new ModuleFederationPlugin({
       // This should be our 'shared contract' between the host and the remotes.
       shared: AutomaticVendorFederation({
         exclude,
         packageJson,
-        shareFrom: ["dependencies"],
+        shareFrom: ['dependencies'],
         jquery: {
           /*
             You can make shared modules "eager", which doesn't put the modules in a async chunk, 

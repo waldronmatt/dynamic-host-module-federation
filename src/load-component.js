@@ -14,7 +14,7 @@ const loadComponent = (scope, module) => {
       Webpack unit test info: 'should provide both shared versions, but not the unused one'
       https://github.com/webpack/webpack/blob/master/test/configCases/sharing/provide-multiple-versions/index.js
     */
-    await __webpack_init_sharing__("default");
+    await __webpack_init_sharing__('default');
     const container = window[scope]; // or get the container somewhere else
     /*
       Initialize the container, it may provide shared modules
