@@ -1,4 +1,4 @@
-<a href="https://user-images.githubusercontent.com/15273233/93658796-e2797000-fa92-11ea-8226-bf1e528251c5.png"><img width="100%" height="100%" src="https://user-images.githubusercontent.com/15273233/93658796-e2797000-fa92-11ea-8226-bf1e528251c5.png"></a>
+<a href="https://miro.medium.com/max/1000/0*jcNZd6Gx5xtDjOoF.png"><img width="100%" height="100%" src="https://miro.medium.com/max/1000/0*jcNZd6Gx5xtDjOoF.png"></a>
 
 # Dynamic Module Federation (Host App)
 
