@@ -33,6 +33,14 @@ Navigate to local server:
 
 **[http://localhost:8000](http://localhost:8000)**
 
+## Supplementary Repositories
+
+This repository employs additional code from the following repositories:
+
+- [remote app repo](https://github.com/waldronmatt/dynamic-remote-module-federation)
+- [module federation assets](https://github.com/waldronmatt/dynamic-module-federation-assets)
+- [dynamic-container-path-webpack-plugin](https://github.com/waldronmatt/dynamic-container-path-webpack-plugin)
+
 ## Notes
 
 **Run this project alongside [the remote app](https://github.com/waldronmatt/dynamic-remote-module-federation)**.
@@ -47,6 +55,13 @@ If you are part of an organization that has the following requirements, this gui
 - Multiple applications shared across multiple domains (URLs)
 
 The final code can be found in the [dynamic-host-module-federation](https://github.com/waldronmatt/dynamic-host-module-federation) boilerplate repository; free to use under the `MIT` license.
+
+There are a total of four different repositories used for this guide:
+
+- [host app repo](https://github.com/waldronmatt/dynamic-host-module-federation)
+- [remote app repo](https://github.com/waldronmatt/dynamic-remote-module-federation)
+- [module federation assets](https://github.com/waldronmatt/dynamic-module-federation-assets)
+- [dynamic-container-path-webpack-plugin](https://github.com/waldronmatt/dynamic-container-path-webpack-plugin)
 
 ## Introduction
 
