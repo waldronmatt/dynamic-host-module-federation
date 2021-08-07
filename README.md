@@ -252,10 +252,10 @@ Within the `make` hook, we have access to Webpack's compilation hooks that allow
 
 ```js
 compilation.hooks.runtimeModule.tap('MutateRuntime', (module, chunk) => {
-	module.constructor.name === 'PublicPathRuntimeModule'
-		? this.changePublicPath(module, chunk)
-		: false;
-	});
+  module.constructor.name === 'PublicPathRuntimeModule'
+	  ? this.changePublicPath(module, chunk)
+	  : false;
+  });
 });
 ```
 
@@ -265,8 +265,8 @@ compilation.hooks.runtimeModule.tap('MutateRuntime', (module, chunk) => {
 
 ```js
 getInternalPublicPathVariable(module) {
-	const [publicPath] = module.getGeneratedCode().split('=');
-	return [publicPath];
+  const [publicPath] = module.getGeneratedCode().split('=');
+  return [publicPath];
 }
 ```
 
@@ -276,9 +276,9 @@ The new `publicPath` value is then assigned to `module._cachedGeneratedCode` whi
 
 ```js
 setNewPublicPathValueFromRuntime(module, publicPath) {
-	module._cachedGeneratedCode =
-		`${publicPath}=${this.options.iife}('${this.options.entry}');`;
-	return  module;
+  module._cachedGeneratedCode =
+    `${publicPath}=${this.options.iife}('${this.options.entry}');`;
+  return  module;
 }
 ```
 
@@ -293,9 +293,9 @@ In the previous section we covered how the method `setNewPublicPathValueFromRunt
 Let's zoom out again to our original API setup using `DynamicContainerPathPlugin`.
 
 ```js
-const  DynamicContainerPathPlugin =
+const DynamicContainerPathPlugin =
 	require('dynamic-container-path-webpack-plugin');
-const  setPublicPath =
+const setPublicPath =
 	require('dynamic-container-path-webpack-plugin/set-path');
 
  new DynamicContainerPathPlugin({
@@ -440,12 +440,12 @@ First we're getting all local `chunks` and returning the code. Because `webpack-
 **Note:** `remoteEntry.js` is considered a `local chunk` in the `remote` repository.
 
 ```js
-  ...chunks.entrypoints.map(chunk => {
-    return chunk !== 'remoteEntry'
-      ? fetch(`./${getManifest[`${chunk}.js`]}`)
-	      .then(response => response.text())
-      : fetch(`${chunk}.js`).then(response => response.text());
-  }),
+...chunks.entrypoints.map(chunk => {
+	return chunk !== 'remoteEntry'
+		? fetch(`./${getManifest[`${chunk}.js`]}`)
+			.then(response => response.text())
+		: fetch(`${chunk}.js`).then(response => response.text());
+}),
 ```
 
 Next, we're getting all remote `chunks` and returning the code. First we grab the appropriate endpoint for each `chunk` based on the current environment.
@@ -453,22 +453,22 @@ Next, we're getting all remote `chunks` and returning the code. First we grab th
 Then we use the derived endpoint value and assign it to `remoteEntry.js` so we can properly fetch the remotes.
 
 ```js
-   ...chunks.remotes.map(chunk => {
-     const { href } = map[chunk][environment()];
-     return fetch(`${href}/remoteEntry.js`).then(response => response.text());
-   }),
+...chunks.remotes.map(chunk => {
+	const { href } = map[chunk][environment()];
+	return fetch(`${href}/remoteEntry.js`).then(response => response.text());
+}),
 ```
 
 Lastly, for each `chunk` we create a `script` tag, assign the returned code to it, and append it to the page for execution.
 
 ```js
- .then(scripts =>
-   scripts.forEach(script => {
-     const element = document.createElement('script');
-     element.text = script;
-     document.querySelector('body').appendChild(element);
-   })
- );
+.then(scripts =>
+	scripts.forEach(script => {
+		const element = document.createElement('script');
+		element.text = script;
+		document.querySelector('body').appendChild(element);
+	})
+);
 ```
 
 Altogether, our code should look like the following:
@@ -538,14 +538,14 @@ For simplicity, we will define logic for determining the environment in `bootstr
 
 ```js
 const configs = [
-	`${getBasePath}environment.config.json`,
+  `${getBasePath}environment.config.json`,
 	...
 ]
 
 ...
 
 const [{ environment }, ... ] = await Promise.all(
-	configs.map(config => fetch(config).then(response => response.json()))
+  configs.map(config => fetch(config).then(response => response.json()))
 );
 
 ...
@@ -712,11 +712,11 @@ Since our remote `FormApp` will require extra dependencies, we can tell Webpack 
 
 ```js
 cacheGroups: {
-	vendor: {
-		name:  `Vendors-${mainEntry}`,
-		chunks:  'async',
-		test: /node_modules/,
-	},
+  vendor: {
+    name:  `Vendors-${mainEntry}`,
+    chunks:  'async',
+    test: /node_modules/,
+  },
 },
 ```
 
@@ -806,10 +806,10 @@ const ModuleFederationConfiguration = () => {
 Next we configure `DynamicContainerPathPlugin` to set `publicPath` at `runtime`:
 
 ```js
-const  DynamicContainerPathPlugin =
-	require('dynamic-container-path-webpack-plugin');
-const  setPublicPath =
-	require('dynamic-container-path-webpack-plugin/set-path');
+const DynamicContainerPathPlugin =
+  require('dynamic-container-path-webpack-plugin');
+const setPublicPath =
+  require('dynamic-container-path-webpack-plugin/set-path');
 
 new  DynamicContainerPathPlugin({
 	iife:  setPublicPath,
@@ -824,7 +824,7 @@ The next step is to configure our entrypoints, output configurations, and remain
 ```js
 target:  'web',
 entry: {
-	[mainEntry]: ['./src/bootstrap.js'],
+  [mainEntry]: ['./src/bootstrap.js'],
 },
 ```
 
@@ -832,8 +832,8 @@ The output configuration has a `publicPath` default value of `/`. This can be ig
 
 ```js
 output: {
-	publicPath:  '/',
-	path:  path.resolve(__dirname, './dist'),
+  publicPath:  '/',
+  path:  path.resolve(__dirname, './dist'),
 },
 ```
 
@@ -845,7 +845,7 @@ At the time of this writing, there is an issue with Module Federation where this
 
 ```js
 optimization: {
-	runtimeChunk:  false,
+  runtimeChunk:  false,
 },
 ```
 
@@ -855,11 +855,11 @@ This plugin is used to generate the `html`. We don't want our `js` assets duplic
 
 ```js
 new  HtmlWebpackPlugin({
-	filename:  'index.html',
-	title:  `${mainEntry}`,
-	description:  `${mainEntry} of Module Federation`,
-	template:  'src/index.html',
-	excludeChunks: [...chunks.entrypoints],
+  filename:  'index.html',
+  title:  `${mainEntry}`,
+  description:  `${mainEntry} of Module Federation`,
+  template:  'src/index.html',
+  excludeChunks: [...chunks.entrypoints],
 }),
 ```
 
@@ -870,14 +870,14 @@ We're adding `ProvidePlugin` to define jQuery (we're using this library primaril
 We're also going to add `CopyPlugin` to copy over the `config/` directory containing our chunk mappings and `WebpackAssetManifest` to generate a mapping of cache-busted assets.
 
 ```js
-new  webpack.ProvidePlugin({
-	$:  'jquery',
-	jQuery:  'jquery',
+new webpack.ProvidePlugin({
+  $:  'jquery',
+  jQuery:  'jquery',
 }),
-new  CopyPlugin({
-	patterns: [{ from:  'config', to:  '' }],
+new CopyPlugin({
+  patterns: [{ from:  'config', to:  '' }],
 }),
-new  WebpackAssetsManifest({}),
+new WebpackAssetsManifest({}),
 ```
 
 The entire code should look like the following:
