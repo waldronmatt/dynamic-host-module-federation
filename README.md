@@ -1013,6 +1013,16 @@ Disadvantages
 - Renaming entrypoints will require updates at the project level (`chunks.config.js`) and at the global level (`map.config.json`). Any host applications referencing remotes will need their references in `chunks.config.js` updated too.
 - Configurations covered adds a fair amount of complexity and requires a deeper level knowledge of Webpack that teams will need to familiarize themselves with.
 
+## Alternative Approaches
+
+Alternative approaches that aim to provide similar functionality to what was described above can be found in the following repositories:
+
+[Dynamic Remote Vendor Sharing Example](https://github.com/module-federation/module-federation-examples/tree/master/advanced-api/dynamic-remotes)
+
+[Module Federation Dynamic Remotes With Runtime Environment Variables](https://github.com/module-federation/module-federation-examples/tree/master/advanced-api/dynamic-remotes-runtime-environment-variables)
+
+[Dynamic Remote with Vendor Sharing and Synchronous imports Example](https://github.com/module-federation/module-federation-examples/tree/master/advanced-api/dynamic-remotes-synchronous-imports)
+
 ## Additional Readings
 
 I would like to share additional references that helped solidify my understanding of Module Federation:
