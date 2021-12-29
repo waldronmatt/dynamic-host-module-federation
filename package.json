@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "rm -rf dist && webpack serve --env development --config webpack.dev.js",
-    "build": "rm -rf dist && webpack --config webpack.server.js && webpack --env production --config webpack.prod.js"
+    "dev": "webpack serve --env development --config webpack.dev.js",
+    "build": "webpack --config webpack.server.js && webpack --env production --config webpack.prod.js"
   },
   "keywords": [],
   "author": "",
