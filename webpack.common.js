@@ -71,6 +71,7 @@ const commonConfig = isProduction => {
         title: `${mainEntry}`,
         description: `${mainEntry} of Module Federation`,
         template: 'src/index.html',
+        favicon: 'public/favicon.png',
         /*
           here we strip out the entry point and the remote alias 'FormApp'
           because we don't want it duplicated when we call it again dynamically at runtime
